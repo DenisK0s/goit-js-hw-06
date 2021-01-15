@@ -71,9 +71,40 @@ console.log(calculateTotalBalance(users)); // 20916
 
 /* 8. Массив имен всех пользователей у которых есть друг с указанным именем. */
 
-const getUsersWithFriend = (users, friendName) => {
-  // твой код
-};
+const getUsersWithFriend = (users, friendName) => users.reduce((acc, user) => {
+  if (user.friends.includes(friendName)) {
+    acc.push(user.name);
+  }  
+
+  return acc;
+}, []);
 
 console.log(getUsersWithFriend(users, 'Briana Decker')); // [ 'Sharlene Bush', 'Sheree Anthony' ]
 console.log(getUsersWithFriend(users, 'Goldie Gentry')); // [ 'Elma Head', 'Sheree Anthony' ]
+
+// ************************************************************************************************************************
+
+/* 9. Массив имен (поле name) людей, отсортированных в зависимости от количества их друзей (поле friends) */
+
+const getNamesSortedByFriendsCount = users => users
+  .slice()
+  .sort((prev, next) => prev.friends.length - next.friends.length);
+
+console.log(getNamesSortedByFriendsCount(users));
+// [ 'Moore Hensley', 'Sharlene Bush', 'Elma Head', 'Carey Barr', 'Blackburn Dotson', 'Sheree Anthony', 'Ross Vazquez' ]
+
+// ************************************************************************************************************************
+
+/* 10. Получить массив всех умений всех пользователей (поле skills), 
+при этом не должно быть повторяющихся умений и они должны быть отсортированы в алфавитном порядке. */
+
+const getSortedUniqueSkills = users => users
+  .reduce((acc, user) => {
+    acc.push(...user.skills)
+    return acc;
+  }, [])
+  .sort()
+  ;
+
+console.log(getSortedUniqueSkills(users));
+// [ 'adipisicing', 'amet', 'anim', 'commodo', 'culpa', 'elit', 'ex', 'ipsum', 'irure', 'laborum', 'lorem', 'mollit', 'non', 'nostrud', 'nulla', 'proident', 'tempor', 'velit', 'veniam' ]
